@@ -8,14 +8,32 @@ function App() {
   const addTodo = (title) => {
     const newTodo = {
       id: Date.now(),
-      title,
+      title: input.trim(),
+      isCompleted: false
     };
     setTodoList([...todoList, newTodo]);
+    setInput('');
   };
+  const completeTodo = (id) => {
+    const updatedTodos = todoList.map((todo)=> {
+      if (todo.id === id){
+        return { ... todo, isCompleted: true};
+      }
+      return todo;
+    });
+    setTodoList (updatedTodos);
+  }
 
   return (
     <div>
-      <TodoForm onAddTodo={addTodo} />
+     <input
+        type="text"
+        placeholder="Enter a todo..."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={addTodo}
+      />
+      <TodoList todoList={todoList} onCompleteTodo={completeTodo} />
     </div>
   );
 }

@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function TodoForm() {
-  const handleAddTodo = (event) => {
-    event.preventDefault();
-    console.dir(event.target);
+function TodoForm({ onAddTodo }) {
+  const [workingTodoTitle, setWorkingTodoTitle] = useState('');
+
+  const handleAddTodo = (e) => {
+    e.preventDefault();
+
+    // Prevent submitting empty todos
+    if (workingTodoTitle.trim() === '') return;
+
+    onAddTodo(workingTodoTitle.trim());
+    setWorkingTodoTitle('');
   };
 
   return (
     <form onSubmit={handleAddTodo}>
-      <input type="text" name="title" placeholder="Add a new todo" />
-      <button type="submit">Add Todo</button>
+      <input
+        type="text"
+        placeholder="Enter a todo"
+        value={workingTodoTitle}
+        onChange={(e) => setWorkingTodoTitle(e.target.value)}
+      />
+      <button type="submit" disabled={workingTodoTitle.trim() === ''}>
+        Add Todo
+      </button>
     </form>
   );
 }
