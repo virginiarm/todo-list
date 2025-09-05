@@ -1,6 +1,11 @@
 import React from 'react';
 
-function TodoListItem({todo}) {
-    return <li>{todo.title}</li>;
+function TodoListItem({todo, onCompleteTodo}) {
+    return (
+        <li>
+            <form></form>
+        </li>
+    )
+     
 }
 export default TodoListItem;
